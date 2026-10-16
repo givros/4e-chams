@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101419">
+  <meta name="description" content="Un atelier de création de jeu : 40 missions et 12 bilans pour découvrir JavaScript, avec un éditeur et un vrai jeu à tester.">
+  <title>Code Quest — Ton studio de jeu</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%2378e0b5'/%3E%3Ctext x='4' y='24' font-size='25' font-family='monospace' fill='%23101419'%3E%7B%7D%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="styles.css">
+  <script type="module" src="src/app.js"></script>
+</head>
+<body class="is-intro">
+  <svg class="icon-library" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <symbol id="i-play" viewBox="0 0 24 24"><path d="m8 5 11 7-11 7Z" fill="currentColor" stroke="none"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14m-6-6 6 6-6 6"/></symbol>
+    <symbol id="i-reset" viewBox="0 0 24 24"><path d="M4 10a8 8 0 1 1 1 8M4 4v6h6"/></symbol>
+    <symbol id="i-code" viewBox="0 0 24 24"><path d="m8 6-6 6 6 6m8-12 6 6-6 6m-3-15-2 18"/></symbol>
+    <symbol id="i-bulb" viewBox="0 0 24 24"><path d="M9 18h6m-5 3h4M8 14a7 7 0 1 1 8 0c-1 1-1 2-1 2H9s0-1-1-2Z"/></symbol>
+    <symbol id="i-book" viewBox="0 0 24 24"><path d="M12 5C9 3 5 3 2 4v15c3-1 7-1 10 1 3-2 7-2 10-1V4c-3-1-7-1-10 1Zm0 0v15"/></symbol>
+    <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 3v12m-5-5 5 5 5-5M4 16v5h16v-5"/></symbol>
+    <symbol id="i-upload" viewBox="0 0 24 24"><path d="M12 16V3m-5 5 5-5 5 5M4 16v5h16v-5"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path d="m6 6 12 12M6 18 18 6"/></symbol>
+    <symbol id="i-chevron" viewBox="0 0 24 24"><path d="m9 5 7 7-7 7"/></symbol>
+    <symbol id="i-flag" viewBox="0 0 24 24"><path d="M5 22V3c5-5 9 5 15 0v11c-6 5-10-5-15 0"/></symbol>
+  </svg>
+
+  <header class="app-header">
+    <a class="brand" href="./" aria-label="Code Quest, accueil de l’atelier"><span class="brand-mark">{ }</span><span>CODE<span class="brand-light">QUEST</span></span></a>
+    <div class="header-actions"><span id="save-status" class="save-status" title="Sauvegarde automatique dans ce navigateur">Enregistré</span></div>
+  </header>
+
+  <div class="studio">
+    <aside class="sidebar" aria-label="Parcours de l’atelier">
+      <div class="sidebar-heading"><span class="eyebrow">PARCOURS</span><span id="progress-number" class="progress-number">0/52</span></div>
+      <div class="overall-progress" role="progressbar" aria-label="Étapes terminées" aria-valuemin="0" aria-valuemax="52" aria-valuenow="0"><div id="progress-fill"></div></div>
+      <div class="course-counts"><span id="mission-progress">0/40 missions</span><span id="quiz-progress">0/12 bilans</span></div>
+      <nav id="mission-navigation" class="mission-navigation" aria-label="Les missions et les bilans"></nav>
+      <div class="sidebar-bottom"><div class="file-actions"><button id="export-button" class="button quiet"><svg class="icon"><use href="#i-download"/></svg> Exporter</button><button id="import-button" class="button icon-button quiet" title="Importer une sauvegarde" aria-label="Importer une sauvegarde"><svg class="icon"><use href="#i-upload"/></svg></button><button id="reset-workshop" class="button icon-button quiet" title="Recommencer l’atelier" aria-label="Recommencer l’atelier"><svg class="icon"><use href="#i-reset"/></svg></button></div><div id="export-menu" class="export-menu" hidden><button id="export-backup">Sauvegarde de l’atelier (.json)</button><button id="export-code">Mon code JavaScript (.js)</button></div><input type="file" id="import-file" accept=".json,application/json" hidden></div>
+    </aside>
+
+    <main class="workbench">
+      <div class="mission-heading"><div class="mission-title"><span id="mission-position" class="mission-position">01</span><h1 id="current-title">Donne-lui un nom</h1></div></div>
+
+      <div class="workspace-panes">
+        <section id="intro-panel" class="intro-panel" aria-label="Découvrir le jeu à construire">
+          <span class="lesson-label">1 · DÉCOUVRE LE RÉSULTAT</span>
+          <h1>Ce jeu,<br>tu vas le coder.</h1>
+          <p>Déplace le personnage, saute sur les plateformes, ramasse les fruits et rejoins le trophée après le drapeau.</p>
+          <p id="intro-note">Clique dans le jeu pour l’essayer avec les flèches et Espace.</p>
+          <div class="intro-start"><span class="lesson-label">2 · CONSTRUIS À PARTIR DE ZÉRO</span><p>Tu partiras d’un fichier game.js vide. À chaque mission, tu compléteras ce même fichier pour voir ton jeu se construire.</p><button id="start-workshop" class="button primary">Commencer mon jeu <svg class="icon"><use href="#i-arrow"/></svg></button></div>
+        </section>
+        <section id="editor-panel" class="editor-panel" aria-label="Éditeur JavaScript">
+          <div class="panel-tabs"><div class="file-tab"><span class="js-mark">JS</span><span id="file-name">game.js</span><span id="dirty-dot" class="dirty-dot" hidden></span></div><span id="mission-line-label" class="mission-line-label" title="Les lignes de cette mission sont surlignées en vert">Mission 01</span><button id="reset-code" class="button icon-button quiet" title="Revenir au dernier code vérifié" aria-label="Revenir au dernier code vérifié" disabled><svg class="icon"><use href="#i-reset"/></svg></button></div>
+          <div class="lesson-switch" role="tablist" aria-label="Les deux étapes de la mission"><button id="learn-tab" type="button" role="tab" aria-selected="true" aria-controls="lesson-read">1. Comprendre</button><button id="code-tab" type="button" role="tab" aria-selected="false" aria-controls="lesson-write" tabindex="-1">2. À toi</button></div>
+          <div class="assignment">
+            <div id="quiz-intro" hidden><div class="lesson-heading"><strong>Fais le point sur ton code</strong></div><p class="lesson-explanation">Observe ton fichier et réponds à droite. Chaque réponse est expliquée ; tu peux réessayer.</p><p id="quiz-summary" class="quiz-summary"></p></div>
+            <div id="lesson-read" role="tabpanel" aria-labelledby="learn-tab">
+            <div class="lesson-heading"><strong id="lesson-concept"></strong></div>
+            <p id="lesson-explanation" class="lesson-explanation"></p>
+            <pre id="lesson-example" class="lesson-example" aria-label="Exemple expliqué"><code></code></pre>
+            </div>
+            <div id="lesson-write" role="tabpanel" aria-labelledby="code-tab" hidden><div class="mission-instruction"><div class="instruction-heading"><span id="edit-context" class="lesson-label">DANS TON FICHIER</span><button id="focus-code" type="button" class="focus-code" title="Aller à l’endroit où écrire">Écrire ici ↓</button></div><ol id="mission-task"></ol><p id="practice-progress" class="practice-progress" role="status" hidden></p></div></div>
+          </div>
+          <div class="editor-surface"><div id="line-numbers" class="line-numbers" aria-hidden="true"></div><div class="editor-text"><div id="mission-highlights" class="mission-highlights" aria-hidden="true"></div><pre id="code-highlight" aria-hidden="true"><code></code></pre><textarea id="code-editor" aria-label="Code JavaScript du jeu" placeholder="Écris ta première ligne ici…" spellcheck="false" autocapitalize="off" autocomplete="off" autocorrect="off" wrap="off"></textarea></div></div>
+          <div class="editor-toolbar"><button id="hint-button" class="button quiet" aria-label="Un indice"><svg class="icon"><use href="#i-bulb"/></svg> Un indice ?</button><button id="verify-button" class="button primary" aria-label="Vérifier la mission" title="Vérifier et jouer · Ctrl+Entrée"><svg class="icon"><use href="#i-check"/></svg> Vérifier</button></div>
+        </section>
+
+        <div id="pane-divider" class="pane-divider" role="separator" tabindex="0" aria-label="Ajuster la largeur de l’éditeur et du jeu" aria-orientation="vertical" aria-controls="editor-panel preview-panel" aria-valuemin="25" aria-valuemax="75" aria-valuenow="39" title="Glisser pour ajuster. Double-clic pour rétablir."></div>
+        <section id="preview-panel" class="preview-panel" aria-label="Jeu et observations">
+          <div class="preview-header"><div class="preview-title"><span class="live-dot"></span><strong id="preview-name">Mon jeu</strong></div><div id="avatar-controls" class="avatar-controls" aria-label="Choix du personnage"></div><button id="replay-button" class="button icon-button quiet" title="Rejouer avec le code vérifié" aria-label="Rejouer" disabled><svg class="icon"><use href="#i-reset"/></svg></button></div>
+          <div class="game-stage"><div class="game-viewport"><canvas id="game-canvas" width="480" height="288" tabindex="0" aria-label="Jeu de plateforme. Flèches pour se déplacer."></canvas><div id="game-win" class="game-win" hidden><span class="win-kicker">NIVEAU TERMINÉ</span><strong id="victory-message"></strong><span id="victory-score"></span><button id="win-replay" class="button primary">Rejouer</button></div><div id="focus-hint" class="focus-hint"><svg class="icon"><use href="#i-play"/></svg><span id="focus-hint-label">Vérifie ton code</span></div></div><section id="quiz-panel" class="quiz-panel" aria-label="Bilan QCM" hidden><div class="quiz-top"><span class="quiz-portrait" aria-hidden="true"></span><strong>PAUSE CODE</strong><div class="quiz-pagination"><button id="quiz-prev" type="button" class="button icon-button quiet" title="Revoir la question précédente" aria-label="Question précédente">←</button><span id="quiz-position"></span></div></div><h2 id="quiz-question"></h2><pre id="quiz-code" class="quiz-code" hidden><code></code></pre><div id="quiz-options" class="quiz-options" role="radiogroup" aria-labelledby="quiz-question"></div><div id="quiz-feedback" class="quiz-feedback" role="status" hidden></div><div id="quiz-actions" class="quiz-actions"><button id="quiz-retry" type="button" class="button secondary" hidden>Réessayer</button><button id="quiz-next" type="button" class="button primary" hidden>Question suivante <svg class="icon"><use href="#i-arrow"/></svg></button></div></section></div>
+          <div class="game-controls"><span id="move-control" hidden><kbd id="left-key">←</kbd><kbd>→</kbd> Déplacer</span><span id="jump-control" hidden><kbd>Espace</kbd> Sauter</span><span id="game-state" class="game-state">À vérifier</span></div>
+          <div id="game-inspector" class="inspector" aria-label="Valeurs du programme" hidden><div class="metrics"><div hidden><span>Position X</span><strong id="metric-x">43</strong></div><div hidden><span>Pas</span><strong id="metric-speed">4</strong></div><div hidden><span>Saut</span><strong id="metric-jump">10</strong></div><div hidden><span>Points</span><strong id="metric-score">0</strong></div><div hidden><span>Objectif</span><strong id="metric-target">3</strong></div></div></div>
+        </section>
+      </div>
+
+      <section class="console-panel console-compact" aria-label="Résultat des vérifications"><div class="console-toolbar"><div class="console-label"><span class="console-terminal">&gt;_</span> TON JEU <span id="console-count" class="console-count">À TOI</span></div><div class="console-actions"><button id="next-button" class="button primary" aria-label="Mission suivante" hidden>Mission suivante <svg class="icon"><use href="#i-arrow"/></svg></button></div></div><div id="console-output" class="console-output" aria-live="polite"></div></section>
+    </main>
+  </div>
+
+
+  <dialog id="help-dialog" class="dialog help-dialog"><div class="dialog-heading"><div><span id="help-kicker" class="eyebrow">UN COUP DE POUCE</span><h2 id="help-title">Un indice, pas toute la réponse</h2></div><button class="button icon-button quiet" data-close-dialog aria-label="Fermer"><svg class="icon"><use href="#i-close"/></svg></button></div><p id="help-body" class="help-body"></p><div id="help-extra" class="help-extra" hidden></div><div class="dialog-actions"><button id="more-hint" class="button secondary">Un indice plus précis</button><button id="show-solution" class="button quiet">Comparer avec une solution</button></div><div id="solution-area" hidden><pre id="help-solution" class="solution-code"></pre><p class="muted small">Explique ce que chaque ligne change avant de reprendre ton code. D’autres écritures qui produisent le même résultat fonctionnent aussi.</p></div></dialog>
+
+
+
+  <dialog id="confirm-dialog" class="dialog confirm-dialog"><div class="dialog-heading"><h2 id="confirm-title">Confirmer</h2><button class="button icon-button quiet" data-close-dialog aria-label="Fermer"><svg class="icon"><use href="#i-close"/></svg></button></div><p id="confirm-body"></p><div class="dialog-actions"><button class="button secondary" data-close-dialog>Annuler</button><button id="confirm-action" class="button primary">Confirmer</button></div></dialog>
+
+  <dialog id="finished-dialog" class="dialog finished-dialog"><div class="finish-emblem">{ ✦ }</div><span class="eyebrow">40 MISSIONS · TON PROPRE JEU</span><h2>Ton code a donné vie<br>à ce jeu !</h2><p>Tu as codé, testé et expliqué les règles de ton jeu.</p><p id="assessment-summary"></p><div class="finish-concepts"><span>Régler</span><span>Calculer</span><span>Décider</span><span>Tester</span></div><div class="dialog-actions"><button id="finish-export" class="button primary"><svg class="icon"><use href="#i-download"/></svg> Garder mon travail</button><button class="button secondary" data-close-dialog>Retour au studio</button></div></dialog>
+  <div id="toast" class="toast" role="status" hidden></div>
+</body>
+</html>
